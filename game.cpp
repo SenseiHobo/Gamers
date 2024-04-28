@@ -6,12 +6,12 @@
 #include "Tool.h"
 #include "game.h"
 #include "enemy.h"
+#include "fight.h"
 
 
 
 
-// Modify start_game to use a loop instead of recursion
-void start_game(Hero &god) {
+void start_game(Hero &god, std::vector<Enemy> &enemies) {
     int choice = 0;
     bool gameRunning = true;
         std::cout << "The game has now begun and you are playing as " << god.getName() << std::endl << std::endl;
@@ -30,13 +30,13 @@ void start_game(Hero &god) {
                 break;
             case 2:
                 printEnemies();
-
+                battleEnemy(enemies);
                 break;
             case 3:
                 saveCharacter(god);
                 break;
             case 4:
-                gameRunning = false;  // Set flag to false to exit the loop
+                gameRunning = false; 
                 break;
             default:
                 std::cout << "Invalid input try again" << std::endl;
@@ -45,3 +45,9 @@ void start_game(Hero &god) {
     }
 }
 
+
+void victory(){
+
+    std::cout << "You have defeated the dragon congrats " << std::endl; 
+    exit(0);
+}

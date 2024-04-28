@@ -134,7 +134,8 @@ void loadHero() {
         qDebug() << "Error executing query:" << query.lastError().text();
     }
 
-    start_game(god);
+    std::vector<Enemy> enemies = setupEnemies();
+    start_game(god, enemies);
 
 }   
 

@@ -5,7 +5,7 @@
 #include "database.h"
 #include "Tool.h"
 #include "game.h"
-
+#include "enemy.h"
 
 
 
@@ -29,6 +29,8 @@ void start_game(Hero &god) {
                 std::cout << god.getName() << " - " << "Level: " << god.getlevel() << "   XP: " << god.getXP() << "     Current Health " << god.getCurrentHP() << "/" << god.getMaxHP() << "     Damage: " <<  god.getDamage() << std::endl;
                 break;
             case 2:
+                printEnemies();
+
                 break;
             case 3:
                 saveCharacter(god);

@@ -9,7 +9,7 @@ class Hero{
 
     public:
         Hero();
-        Hero(std::string name, int xp, int level, int maxHP, int strength);
+        Hero(std::string name, int xp, int level, int maxHP, int strength, int gold);
         
         std::string getName();
 
@@ -34,6 +34,10 @@ class Hero{
         int getlevel();
         void levelup();
 
+        //Money
+        void addGold(int money);
+        int getGold();
+
     private: 
         std::string _name;
         int _xp;
@@ -42,6 +46,7 @@ class Hero{
         int _currentHP;
         int _damage;
         int _strength; 
+        int _gold;
 
 
 

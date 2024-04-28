@@ -7,6 +7,8 @@
 #include "game.h"
 #include "enemy.h"
 #include "fight.h"
+#include "game.h"
+#include "Cave.h"
 
 
 
@@ -19,14 +21,15 @@ void start_game(Hero &god, std::vector<Enemy> &enemies) {
         std::cout << "1. Checkout stats " << std::endl;
         std::cout << "2. Fight an enemy " << std::endl;
         std::cout << "3. Save your character " << std::endl; 
-        std::cout << "4. Exit game " << std::endl;   
+        std::cout << "4. Enter a cave " << std::endl;
+        std::cout << "5. Exit game " << std::endl;   
         std::cout << "Enter your choice: ";
         choice = getNumericInput();
         std::cout << std::endl;
 
         switch (choice) {
             case 1:
-                std::cout << god.getName() << " - " << "Level: " << god.getlevel() << "   XP: " << god.getXP() << "     Current Health " << god.getCurrentHP() << "/" << god.getMaxHP() << "     Damage: " <<  god.getDamage() << std::endl;
+                std::cout << god.getName() << " - " << "Level: " << god.getlevel() << "   XP: " << god.getXP() << "     Current Health " << god.getCurrentHP() << "/" << god.getMaxHP() << "     Damage: " <<  god.getDamage() << "      Gold: "  << god.getGold() <<  std::endl;
                 break;
             case 2:
                 printEnemies();
@@ -36,7 +39,9 @@ void start_game(Hero &god, std::vector<Enemy> &enemies) {
                 saveCharacter(god);
                 break;
             case 4:
-                //enter cave(); 
+                printCaves();
+                cave_select();
+
                 break;
             case 5:
                 gameRunning = false; 

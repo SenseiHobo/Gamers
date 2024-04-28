@@ -9,6 +9,7 @@ create table hero (
     maxHP int not null, 
     damage int not null,
     strength int not null,
+    gold int not null,
     primary key (name)
 
 );

@@ -3,6 +3,7 @@
 #include "hero.h"
 #include "menu.h"
 #include "game.h"
+#include "Tool.h"
 
 void fight(Hero& god, Enemy& enemy) {
     while (god.getCurrentHP() > 0 && enemy.getHealth() > 0) {
@@ -52,11 +53,33 @@ void fight(Hero& god, Enemy& enemy) {
 }
 
 
+void Cavefigth(Hero& god, std::vector<Enemy> & caveEnemies) {
+    size_t enemyIndex = 0;
+    while(enemyIndex < caveEnemies.size()){
+        Enemy& currentEnemy = caveEnemies[enemyIndex];
+        std::cout << "Entering battle with " << currentEnemy.getName() << std::endl;
+
+        fight(god, currentEnemy);
+
+        if(god.getCurrentHP() <= 0){
+            return; 
+        }
+
+        if(currentEnemy.getHealth() <= 0){
+            caveEnemies.erase(caveEnemies.begin() + enemyIndex);
+        } else {
+            enemyIndex++;
+        }
+    }
+
+}
+
+
 
 void battleEnemy(std::vector<Enemy>& enemies) {
     int choice = 0;
     std::cout << "Pick an Enemy to battle by their ID: ";
-    std::cin >> choice;
+    choice = getNumericInput();
     std::cout << std::endl;
 
     if (choice > 0 && choice <= enemies.size()) {
@@ -67,3 +90,5 @@ void battleEnemy(std::vector<Enemy>& enemies) {
         std::cout << "Invalid choice, try again" << std::endl;
     }
 }
+
+

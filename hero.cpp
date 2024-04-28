@@ -3,8 +3,8 @@
 #include "hero.h"
 
 
-Hero::Hero() : _name("Unknown"), _xp(0), _level(1), _maxHP(10), _currentHP(_maxHP), _damage(_strength), _strength(2){}
-Hero::Hero(std::string name, int level, int xp, int maxHP, int strength) : _name(name), _level(level), _xp(xp), _maxHP(maxHP), _currentHP(_maxHP), _damage(_strength), _strength(strength){}
+Hero::Hero() : _name("Unknown"), _xp(0), _level(1), _maxHP(10), _currentHP(_maxHP), _damage(_strength), _strength(2), _gold(0) {}
+Hero::Hero(std::string name, int level, int xp, int maxHP, int strength, int gold) : _name(name), _level(level), _xp(xp), _maxHP(maxHP), _currentHP(_maxHP), _damage(_strength), _strength(strength), _gold(gold) {}
 
 
 int Hero::getDamage(){
@@ -34,6 +34,14 @@ std::string Hero::getName(){
 
 int Hero::getCurrentHP(){
     return _currentHP;
+}
+
+void Hero::addGold(int money){
+    _gold += money;
+}
+
+int Hero::getGold(){
+    return _gold;
 }
 
 void Hero::resetHealth(){

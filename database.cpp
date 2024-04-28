@@ -72,9 +72,9 @@ void ShowHeroes(){
             int maxHP = query.value(3).toInt();
             int damage = query.value(4).toInt();
             int strength = query.value(5).toInt();
+            int gold = query.value(6).toInt();
 
-
-            qDebug() << "Hero name: " << name << " Level: " << Level << "xp " << xp << "maxHP: " << maxHP << "Damage: " << damage << "strength: " << strength;
+            qDebug() << "Hero name: " << name << " Level: " << Level << "xp " << xp << "maxHP: " << maxHP << "Damage: " << damage << "strength: " << strength << "Gold: " << gold;
         }
     } else {
         qDebug() << "Error executing query:" << query.lastError().text();
@@ -111,7 +111,7 @@ void loadHero() {
     int maxHP;
     int damage;
     int strength;
-
+    int gold;
 
 
     if (query.exec()) {
@@ -121,7 +121,8 @@ void loadHero() {
             maxHP = query.value(2).toInt();
             damage = query.value(3).toInt();
             strength = query.value(4).toInt();
-            god = Hero(name, level, xp, maxHP, strength);
+            gold = query.value(5).toInt();
+            god = Hero(name, level, xp, maxHP, strength, gold);
 
             qDebug() << "Loaded Hero: " << QString::fromStdString(name) << " - Level:" << level << " XP:" << xp
                      << " MaxHP:" << maxHP << " Damage:" << damage << " Strength:" << strength;
@@ -188,12 +189,13 @@ void saveCharacter(Hero &god){
 
 
     QSqlQuery query;
-    query.prepare("UPDATE hero SET level = :level, xp = :xp, maxHP = :maxHP, damage = :damage, strength = :strength WHERE name = :name");
+    query.prepare("UPDATE hero SET level = :level, xp = :xp, maxHP = :maxHP, damage = :damage, strength = :strength, gold = :gold WHERE name = :name");
     query.bindValue(":level", god.getlevel());
     query.bindValue(":xp", god.getXP());
     query.bindValue(":maxHP", god.getMaxHP());
     query.bindValue(":damage", god.getDamage());
     query.bindValue(":strength", god.getStrength());
+    query.bindValue(":gold", god.getGold());
     query.bindValue(":name", QString::fromStdString(god.getName()));
 
     // Execute the query

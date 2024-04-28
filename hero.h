@@ -47,4 +47,6 @@ class Hero{
 
 };
 
+extern Hero god; 
+
 #endif //HERO_H

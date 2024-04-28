@@ -60,7 +60,8 @@ void Hero::levelup(){
 
 }
 
-
 void Hero::takeDamage(int damage){
     _currentHP -= damage;
 }
+
+Hero god; 

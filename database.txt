@@ -1,0 +1,14 @@
+create schema hobo_adventure; 
+use hobo_adventure;
+
+create table hero (
+
+    name char(125),
+    Level int not null,
+    XP int not null,
+    maxHP int not null, 
+    damage int not null,
+    strength int not null,
+    primary key (name)
+
+);

@@ -36,8 +36,12 @@ void start_game(Hero &god, std::vector<Enemy> &enemies) {
                 saveCharacter(god);
                 break;
             case 4:
+                //enter cave(); 
+                break;
+            case 5:
                 gameRunning = false; 
                 break;
+            
             default:
                 std::cout << "Invalid input try again" << std::endl;
                 break;

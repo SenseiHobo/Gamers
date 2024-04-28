@@ -8,6 +8,7 @@
 
 #include "hero.h"
 #include "menu.h"
+#include "game.h"
 
 std::string username = "sammy";
 std::string password = "#Superdeadcasp2004";
@@ -85,8 +86,6 @@ void ShowHeroes(){
 
 
 
-
-
 void loadHero() {
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("localhost");
@@ -134,6 +133,9 @@ void loadHero() {
     } else {
         qDebug() << "Error executing query:" << query.lastError().text();
     }
+
+    start_game(god);
+
 }   
 
 

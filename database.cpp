@@ -104,7 +104,7 @@ void loadHero() {
     std::cout << std::endl;
 
     QSqlQuery query;
-    query.prepare("SELECT level, xp, maxHP, damage, strength FROM hero WHERE name = :name");
+    query.prepare("SELECT level, xp, maxHP, damage, strength, gold FROM hero WHERE name = :name");
     query.bindValue(":name", QString::fromStdString(name));
 
     int level;
@@ -126,7 +126,7 @@ void loadHero() {
             god = Hero(name, level, xp, maxHP, strength, gold);
 
             qDebug() << "Loaded Hero: " << QString::fromStdString(name) << " - Level:" << level << " XP:" << xp
-                     << " MaxHP:" << maxHP << " Damage:" << damage << " Strength:" << strength;
+                     << " MaxHP:" << maxHP << " Damage:" << damage << " Strength:" << strength << " Gold:" << gold;
         } else {
             qDebug() << "No hero found with the name: " << QString::fromStdString(name);
             selector(); 

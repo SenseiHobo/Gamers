@@ -3,6 +3,9 @@
 
 #include <iostream> 
 #include <string> 
+#include <vector>
+#include <memory> 
+#include "spell.h"
 
 
 class Hero{
@@ -38,6 +41,12 @@ class Hero{
         void addGold(int money);
         int getGold();
 
+        //Spells;
+
+        void learnSpell(std::shared_ptr<Spell> spell);
+        bool hasSpell(int spellId) const;
+
+
     private: 
         std::string _name;
         int _xp;
@@ -47,6 +56,7 @@ class Hero{
         int _damage;
         int _strength; 
         int _gold;
+        std::vector<std::shared_ptr<Spell>> spells;
 
 
 

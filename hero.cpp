@@ -72,4 +72,20 @@ void Hero::takeDamage(int damage){
     _currentHP -= damage;
 }
 
+
+void Hero::learnSpell(std::shared_ptr<Spell> spell){
+    spells.push_back(spell);
+    std::cout << "Learned new spell: " << spell-> getName() << std::endl;
+}
+
+bool Hero::hasSpell(int spellId) const{
+    for(const auto& spell : spells){
+        if(spell->getID() == spellId){
+            return true;
+        }
+    }
+    return false; 
+}
+
+
 Hero god; 

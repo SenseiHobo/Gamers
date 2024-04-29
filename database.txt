@@ -13,3 +13,13 @@ create table hero (
     primary key (name)
 
 );
+
+create table spells(
+    spell_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(125) NOT NULL,
+    damage INT NOT NULL,
+    elemnt CHAR(50),
+    gold_price INT NOT NULL,
+    hero_name CHAR(125),
+    FOREIGN KEY(hero_name) REFERENCES hero(name) ON DELETE CASCADE
+);

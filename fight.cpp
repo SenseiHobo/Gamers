@@ -1,3 +1,4 @@
+#include <limits>
 #include "fight.h"
 #include "enemy.h"
 #include "hero.h"
@@ -7,7 +8,11 @@
 #include "Cave.h"
 
 void fight(Hero& god, Enemy& enemy) {
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     while (god.getCurrentHP() > 0 && enemy.getHealth() > 0) {
+        std::cout << "Press Enter to continue...";
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
         // Hero attacks enemy
         int damage = god.getStrength();
         std::cout << god.getName() << " attacks " << enemy.getName() << " for " << damage << " damage." << std::endl;
@@ -53,30 +58,6 @@ void fight(Hero& god, Enemy& enemy) {
     }
 }
 
-
-/*void Cavefigth(Hero& god, const Cave &caveEnemies) {
-    size_t enemyIndex = 0;
-    while(enemyIndex < caveEnemies.size()){
-        Enemy& currentEnemy = caveEnemies[enemyIndex];
-        std::cout << "Entering battle with " << currentEnemy.getName() << std::endl;
-
-        fight(god, currentEnemy);
-
-        if(god.getCurrentHP() <= 0){
-            return; 
-        }
-
-        if(currentEnemy.getHealth() <= 0){
-
-            god.XPreward(currentEnemy.getXP());
-            std::cout << "Defeated " << currentEnemy.getName() << " and gained " << currentEnemy.getXP() << " XP!" << std::endl;
-            caveEnemies.erase(caveEnemies.begin() + enemyIndex);
-        } else {
-            enemyIndex++;
-        }
-    }
-
-}*/
 
 
 void Cavefight(Hero& god, const Cave& caveEnemies) {

@@ -42,6 +42,7 @@ void start_game(Hero &god, std::vector<Enemy> &enemies) {
                 printCaves();
                 cave_select();
 
+
                 break;
             case 5:
                 gameRunning = false; 

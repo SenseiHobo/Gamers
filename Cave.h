@@ -20,8 +20,7 @@ class Cave{
         bool isCleared();
         void markCleared();
         const std::vector<Enemy> & getEnemies() const;
-        //void printCaveEnemies(); 
-
+        void printCaveEnemies() const;
 
     private:
         int _id;
@@ -29,12 +28,15 @@ class Cave{
         int _gold; 
         bool _cleared;
         std::vector<Enemy> Cave_Enemy; 
-
+    
 }; 
+
 
 
 std::vector<Cave> setupCaves();
 
 void cave_select();
+
+
 
 #endif //CAVE_H

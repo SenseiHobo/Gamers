@@ -4,6 +4,7 @@
 #include "menu.h"
 #include "game.h"
 #include "Tool.h"
+#include "Cave.h"
 
 void fight(Hero& god, Enemy& enemy) {
     while (god.getCurrentHP() > 0 && enemy.getHealth() > 0) {
@@ -53,7 +54,7 @@ void fight(Hero& god, Enemy& enemy) {
 }
 
 
-void Cavefigth(Hero& god, std::vector<Enemy> & caveEnemies) {
+/*void Cavefigth(Hero& god, const Cave &caveEnemies) {
     size_t enemyIndex = 0;
     while(enemyIndex < caveEnemies.size()){
         Enemy& currentEnemy = caveEnemies[enemyIndex];
@@ -66,13 +67,44 @@ void Cavefigth(Hero& god, std::vector<Enemy> & caveEnemies) {
         }
 
         if(currentEnemy.getHealth() <= 0){
+
+            god.XPreward(currentEnemy.getXP());
+            std::cout << "Defeated " << currentEnemy.getName() << " and gained " << currentEnemy.getXP() << " XP!" << std::endl;
             caveEnemies.erase(caveEnemies.begin() + enemyIndex);
         } else {
             enemyIndex++;
         }
     }
 
+}*/
+
+
+void Cavefight(Hero& god, const Cave& caveEnemies) {
+    
+  const std::vector<Enemy>& enemies = caveEnemies.getEnemies();
+
+
+  for (const Enemy& enemy : enemies) {
+    std::cout << "Entering battle with " << enemy.getName() << std::endl;
+
+    Enemy copyOfEnemy = enemy;
+    fight(god, copyOfEnemy); 
+
+    if (god.getCurrentHP() <= 0) {
+      return; 
+    }
+
+    if (enemy.getHealth() <= 0) {
+      god.XPreward(enemy.getXP());
+      std::cout << "Defeated " << enemy.getName() << " and gained " << enemy.getXP() << " XP!" << std::endl;
+    }
+  }
+
+  if (enemies.empty()) {
+    std::cout << "You have cleared all enemies in " << caveEnemies.getName() << "!" << std::endl;
+  }
 }
+
 
 
 

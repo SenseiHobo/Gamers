@@ -24,7 +24,7 @@ void createHero(){
         qDebug() << "Database connection failed";
     }
 
-    int xp = 0 , level = 1, maxHP = 10, damage = 2, strength = 2; 
+    int xp = 0 , level = 1, maxHP = 10, damage = 2, strength = 2; int gold = 0;
     std::string name;
 
     std::cout << "Indtast din Helt navn: "; 
@@ -32,7 +32,7 @@ void createHero(){
     std::cout << std::endl; 
 
     QSqlQuery query;
-    query.prepare("INSERT INTO hero (name, level, xp, maxHP, damage, strength) VALUES (:name, :level, :xp, :maxHP, :damage, :strength)");
+    query.prepare("INSERT INTO hero (name, level, xp, maxHP, damage, strength, gold) VALUES (:name, :level, :xp, :maxHP, :damage, :strength, :gold)");
 
 // Bind values to the named placeholders
     query.bindValue(":name", QString::fromStdString(name));
@@ -41,6 +41,7 @@ void createHero(){
     query.bindValue(":maxHP", maxHP);
     query.bindValue(":damage", damage);
     query.bindValue(":strength", strength);
+    query.bindValue(":gold", gold);
 
     if (!query.exec()) {
         qDebug() << "Failed to insert hero into database:" << query.lastError().text();

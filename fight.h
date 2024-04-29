@@ -3,12 +3,13 @@
 
 #include "hero.h"
 #include "enemy.h"
-
+#include "Cave.h" 
 
 void fight(Hero& hero, Enemy& enemy);
 
 void battleEnemy(std::vector<Enemy>& enemies);
 
-void Cavefigth(Hero& god, std::vector<Enemy> & caveEnemies);
+void Cavefight(Hero& god, const Cave& caveEnemies);
+
 
 #endif 

@@ -1,7 +1,8 @@
+#include "fight.h"
 #include "Cave.h"
 #include "Tool.h"
 #include "enemy.h"
-#include "fight.h"
+
 
 Cave::Cave() {}
 
@@ -93,9 +94,9 @@ void cave_select(){
             std::cout << "This cave has not been reset" << std::endl;
         } else {
             std::cout << "Entering " << selectedCave.getName() << std::endl;
-
+            selectedCave.printCaveEnemies();
             
-            Cavefigth(god, const_cast<std::vector<Enemy>&>(selectedCave.getEnemies()));
+            Cavefight(god, selectedCave);
 
             std::cout << "You have cleared " << selectedCave.getName() << " and earned " << selectedCave.getGold() << " gold!" << std::endl;
             selectedCave.markCleared();  
@@ -107,3 +108,16 @@ void cave_select(){
     
 
 }
+
+void Cave::printCaveEnemies() const {
+    if (Cave_Enemy.empty()) {
+        std::cout << "This cave is currently free of enemies." << std::endl;
+    } else {
+        std::cout << "List of Enemies in " << _name << ":" << std::endl;
+        for (const Enemy& enemy : Cave_Enemy) {
+            std::cout << "- " << enemy.getName() << " (HP: " << enemy.getHealth() << ")" << std::endl;
+        }
+    }
+}
+
+

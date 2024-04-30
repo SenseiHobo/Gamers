@@ -14,13 +14,6 @@ create table hero (
 
 );
 
-CREATE TABLE hero_spells (
-    hero_name CHAR(125),
-    spell_id INT,
-    PRIMARY KEY (hero_name, spell_id),
-    FOREIGN KEY (hero_name) REFERENCES hero(name) ON DELETE CASCADE,
-    FOREIGN KEY (spell_id) REFERENCES spells_list(spell_id) ON DELETE CASCADE
-);
 
 CREATE TABLE spells_list (
     spell_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -32,6 +25,14 @@ CREATE TABLE spells_list (
     FOREIGN KEY (required_spell_id) REFERENCES spells_list(spell_id)
 );
 
+
+CREATE TABLE hero_spells (
+    hero_name CHAR(125),
+    spell_id INT,
+    PRIMARY KEY (hero_name, spell_id),
+    FOREIGN KEY (hero_name) REFERENCES hero(name) ON DELETE CASCADE,
+    FOREIGN KEY (spell_id) REFERENCES spells_list(spell_id) ON DELETE CASCADE
+);
 
 INSERT INTO spells_list (name, damage, element, gold_price, required_spell_id) VALUES
 ('Flame Burst', 15, 'Fire', 500, NULL),

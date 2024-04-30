@@ -113,7 +113,6 @@ void loadHero(const std::vector<std::shared_ptr<Spell>>& spells) {
     query.prepare("SELECT level, xp, maxHP, damage, strength, gold FROM hero WHERE name = :name");
     query.bindValue(":name", qName);
 
-    Hero god; 
 
     if (query.exec()) {
         if (query.next()) {
@@ -153,13 +152,6 @@ void loadHero(const std::vector<std::shared_ptr<Spell>>& spells) {
 
 
 }
-
-
-
-
-
-
-
 
 
 void deleteHero(){

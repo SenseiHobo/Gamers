@@ -87,5 +87,9 @@ bool Hero::hasSpell(int spellId) const{
     return false; 
 }
 
+const std::vector<std::shared_ptr<Spell>>& Hero::getSpells() const {
+        return spells;
+    }
+
 
 Hero god; 

@@ -45,7 +45,7 @@ class Hero{
 
         void learnSpell(std::shared_ptr<Spell> spell);
         bool hasSpell(int spellId) const;
-
+        const std::vector<std::shared_ptr<Spell>>& getSpells() const;
 
     private: 
         std::string _name;

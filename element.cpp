@@ -106,3 +106,14 @@ Element stringToElement(const std::string& element) {
     if (element == "Metal") {return Element::Metal;}
     throw std::invalid_argument("Unknown element: " + element);
 }
+
+std::string elementToString(Element element) {
+    switch (element) {
+        case Element::Fire:  return "Fire";
+        case Element::Water: return "Water";
+        case Element::Earth: return "Earth";
+        case Element::Metal: return "Metal";
+        case Element::Wood:  return "Wood";
+        default: throw std::invalid_argument("Unknown Element");
+    }
+}

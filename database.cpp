@@ -176,19 +176,22 @@ void deleteHero(){
 
 }
 
+#include <QSqlQuery>
+#include <QDebug>
+#include <QVariant>
 
 void saveCharacter(Hero &god){
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("localhost");
     db.setDatabaseName("hobo_adventure");
-    db.setUserName(QString::fromStdString(username));  // Husk at ændre til dit brugernavn
-    db.setPassword(QString::fromStdString(password));  // Husk at ændre til din adgangskode
+    db.setUserName(QString::fromStdString(username));  // Replace with your username
+    db.setPassword(QString::fromStdString(password));  // Replace with your password
     if (!db.open()) {
         qDebug() << "Database connection failed";
         return;  // Exit the function if connection fails
     }
 
-
+    // Update hero details
     QSqlQuery query;
     query.prepare("UPDATE hero SET level = :level, xp = :xp, maxHP = :maxHP, damage = :damage, strength = :strength, gold = :gold WHERE name = :name");
     query.bindValue(":level", god.getlevel());
@@ -199,10 +202,27 @@ void saveCharacter(Hero &god){
     query.bindValue(":gold", god.getGold());
     query.bindValue(":name", QString::fromStdString(god.getName()));
 
-    // Execute the query
-    if (query.exec()) {
-        qDebug() << "Hero updated successfully: " << QString::fromStdString(god.getName());
-    } else {
+    if (!query.exec()) {
         qDebug() << "Error updating hero:" << query.lastError().text();
+    } else {
+        qDebug() << "Hero updated successfully: " << QString::fromStdString(god.getName());
     }
+
+    // Insert new spells
+    for (auto& spell : god.getSpells()) {
+        query.prepare("INSERT INTO spells (name, damage, element, gold_price, hero_name) VALUES (:name, :damage, :element, :gold_price, :hero_name) ON DUPLICATE KEY UPDATE damage = :damage, element = :element, gold_price = :gold_price");
+        query.bindValue(":name", QString::fromStdString(spell->getName()));
+        query.bindValue(":damage", spell->getDamage());
+        query.bindValue(":element", QString::fromStdString(elementToString(spell->getElement())));
+        query.bindValue(":gold_price", spell->getGoldPrice());
+        query.bindValue(":hero_name", QString::fromStdString(god.getName()));
+
+        if (!query.exec()) {
+            qDebug() << "Error inserting spell:" << query.lastError().text();
+        } else {
+            qDebug() << "Spell inserted/updated successfully for hero: " << QString::fromStdString(god.getName());
+        }
+    }
+
+    db.close(); // Close the database connection
 }

@@ -13,34 +13,69 @@ void fight(Hero& god, Enemy& enemy) {
         std::cout << "Press Enter to continue...";
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-        // Hero attacks enemy
-        int damage = god.getStrength();
-        std::cout << god.getName() << " attacks " << enemy.getName() << " for " << damage << " damage." << std::endl;
-        enemy.takeDamage(damage);
+        // Display current health
+        std::cout << god.getName() << " HP: " << god.getCurrentHP() << " | " 
+                  << enemy.getName() << " HP: " << enemy.getHealth() << std::endl;
 
+        // Player chooses attack type
+        std::cout << "Choose your action:\n1. Regular Attack\n2. Cast Spell\nEnter choice (1-2): ";
+        int choice;
+        choice = getNumericInput();
+
+        int damage = 0;
+        if (choice == 1) {
+            // Regular attack
+            damage = god.getStrength();
+            std::cout << god.getName() << " attacks " << enemy.getName() << " for " << damage << " damage." << std::endl;
+            enemy.takeDamage(damage);
+        } else if (choice == 2) {
+            // Cast spell
+            if (!god.getSpells().empty()) {
+                std::cout << "Select a spell to cast:" << std::endl;
+                for (int i = 0; i < god.getSpells().size(); ++i) {
+                    std::cout << i + 1 << ". " << god.getSpells()[i]->getName() 
+                              << " (Damage: " << god.getSpells()[i]->getDamage() << ")" << std::endl;
+                }
+                int spellIndex;
+                std::cin >> spellIndex;
+                spellIndex--;  
+                if (spellIndex >= 0 && spellIndex < god.getSpells().size()) {
+                    auto& spell = god.getSpells()[spellIndex];
+                    damage = spell->getDamage();
+                    std::cout << god.getName() << " casts " << spell->getName() 
+                              << ", dealing " << damage << " damage." << std::endl;
+                    enemy.takeDamage(damage);
+                } else {
+                    std::cout << "Invalid spell selection." << std::endl;
+                    continue;  // Skip enemy turn if input is invalid
+                }
+            } else {
+                std::cout << "No spells available to cast!" << std::endl;
+                continue;  // Skip enemy turn if no spells are available
+            }
+        } else {
+            std::cout << "Invalid choice. Please choose a valid action." << std::endl;
+            continue;  // Skip enemy turn if input is invalid
+        }
+
+        // Check enemy status
         if (enemy.getHealth() <= 0) {
             std::cout << enemy.getName() << " has been defeated!" << std::endl;
             std::cout << god.getName() << " wins with " << god.getCurrentHP() << " HP remaining." << std::endl;
-            std::cout << god.getName() << " XP rewarded: " << enemy.getXP() << std::endl;
-            std::cout << "current xp before reward: " << god.getXP() << std::endl;
             god.XPreward(enemy.getXP());
+            std::cout << "XP rewarded: " << enemy.getXP() << std::endl;
             god.levelup();
 
-            if(enemy.getName() == "Jungle Dragon"){
-                victory();
+            if (enemy.getName() == "Jungle Dragon") {
+                victory();  
             }
 
             enemy.HealthReset();
             god.resetHealth();
-            std::cout << std::endl;
-
-
             break;
-        } else {
-            std::cout << enemy.getName() << " has " << enemy.getHealth() << " HP remaining." << std::endl;
         }
 
-        // Enemy attacks hero
+        //Enemy turn
         damage = enemy.getStrength(); 
         std::cout << enemy.getName() << " attacks " << god.getName() << " for " << damage << " damage." << std::endl;
         god.takeDamage(damage);
@@ -48,12 +83,8 @@ void fight(Hero& god, Enemy& enemy) {
         if (god.getCurrentHP() <= 0) {
             std::cout << god.getName() << " has been defeated!" << std::endl;
             std::cout << enemy.getName() << " wins with " << enemy.getHealth() << " HP remaining." << std::endl;
-            enemy.HealthReset();
-            std::cout << std::endl;
-            selector();
+            selector(); 
             break;
-        } else {
-            std::cout << god.getName() << " has " << god.getCurrentHP() << " HP remaining." << std::endl;
         }
     }
 }

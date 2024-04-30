@@ -45,7 +45,7 @@ void fight(Hero& god, Enemy& enemy) {
                 spellIndex--;  
                 if (spellIndex >= 0 && spellIndex < god.getSpells().size()) {
                     auto& spell = god.getSpells()[spellIndex];
-                    if(god.getMana() >= spell->getManaCost()){
+                    if(god.getCurrentMana() >= spell->getManaCost()){
                         god.useMana(spell->getManaCost());
                         float mult = getDamageMultiplier(spell->getElement(), enemy.getElement());
                         damage = spell->getDamage() * mult;
@@ -138,7 +138,7 @@ void battleEnemy(std::vector<Enemy>& enemies) {
     std::cout << std::endl;
 
     if (choice > 0 && choice <= enemies.size()) {
-        Enemy& opp = enemies[choice -1];  // Use a reference here
+        Enemy& opp = enemies[choice -1];  
         std::cout << "You are fighting " << opp.getName() << std::endl; 
         fight(god, opp);
     } else {

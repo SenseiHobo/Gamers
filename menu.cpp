@@ -3,6 +3,7 @@
 #include "menu.h"
 #include "database.h"
 
+auto spell = createSpells();
 int getNumericInput();
 
 void start(){
@@ -46,7 +47,7 @@ void selector(){
             break;
         case 3: 
             std::cout << "You are loading an existing hero" << std::endl;
-            loadHero();
+            loadHero(spell);
             break;
         case 4:
             std::cout << "Type the name of the hero you want to delete" << std::endl; 

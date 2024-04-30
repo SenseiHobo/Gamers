@@ -21,4 +21,6 @@ Element stringToElement(const std::string& element);
 
 std::string elementToString(Element element);
 
+
+
 #endif // ELEMENT_H

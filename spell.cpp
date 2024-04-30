@@ -28,7 +28,7 @@ std::shared_ptr<Spell> Spell::getRequired() const {
     return _require; 
 }
 
-
+/*
 std::vector<std::shared_ptr<Spell>> createSpells() {
     std::vector<std::shared_ptr<Spell>> spellList; 
 
@@ -84,3 +84,4 @@ std::vector<std::shared_ptr<Spell>> createSpells() {
 
     return spellList;
 }
+*/

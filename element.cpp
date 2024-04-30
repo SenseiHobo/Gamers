@@ -1,6 +1,6 @@
 #include "element.h"
 
-float ElementLogic::getDamageMultiplier(Element attacker, Element defender) {
+float getDamageMultiplier(Element attacker, Element defender) {
     
 
     //Fire Attack and defend

@@ -6,6 +6,7 @@
 #include "game.h"
 #include "Tool.h"
 #include "Cave.h"
+#include "element.h"
 
 void fight(Hero& god, Enemy& enemy) {
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -30,6 +31,8 @@ void fight(Hero& god, Enemy& enemy) {
             enemy.takeDamage(damage);
         } else if (choice == 2) {
             // Cast spell
+
+
             if (!god.getSpells().empty()) {
                 std::cout << "Select a spell to cast:" << std::endl;
                 for (int i = 0; i < god.getSpells().size(); ++i) {
@@ -41,7 +44,10 @@ void fight(Hero& god, Enemy& enemy) {
                 spellIndex--;  
                 if (spellIndex >= 0 && spellIndex < god.getSpells().size()) {
                     auto& spell = god.getSpells()[spellIndex];
-                    damage = spell->getDamage();
+
+                    float mult = getDamageMultiplier(spell->getElement(), enemy.getElement());
+
+                    damage = spell->getDamage() * mult;
                     std::cout << god.getName() << " casts " << spell->getName() 
                               << ", dealing " << damage << " damage." << std::endl;
                     enemy.takeDamage(damage);

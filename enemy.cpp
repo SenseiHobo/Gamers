@@ -4,7 +4,7 @@
 #include "database.h"
 
 
-Enemy::Enemy(int id, std::string name, int health, int strength, int xp) : _id(id) ,_name(name), _health(health), _strength(strength), _xp(xp), _currentHP(_health) {}
+Enemy::Enemy(int id, std::string name, int health, int strength, int xp, Element element) : _id(id) ,_name(name), _health(health), _strength(strength), _xp(xp), _currentHP(_health), _element(element) {}
 
 
 std::string Enemy::getName() const{
@@ -27,33 +27,37 @@ int Enemy::getID() const{
     return _id;
 }
 
+Element Enemy::getElement(){
+    return _element;
+}
+
 
 std::vector<Enemy> setupEnemies(){
     
     std::vector<Enemy> enemies;
 
-    Enemy e1(1, "slime", 4, 1, 100);
+    Enemy e1(1, "slime", 4, 1, 100, stringToElement("Water"));
     enemies.push_back(e1);
     
-    Enemy e2(2, "zombie", 4, 2, 200);
+    Enemy e2(2, "zombie", 4, 2, 200, stringToElement("Metal"));
     enemies.push_back(e2);
 
-    Enemy e3(3, "Blood Crawl", 8, 3, 400);
+    Enemy e3(3, "Blood Crawl", 8, 3, 400, stringToElement("Wood"));
     enemies.push_back(e3);
 
-    Enemy e4(4, "Harpy", 10, 4, 500);
+    Enemy e4(4, "Harpy", 10, 4, 500, stringToElement("Metal"));
     enemies.push_back(e4);
 
-    Enemy e5(5, "Corruptor", 15, 5, 800);
+    Enemy e5(5, "Corruptor", 15, 5, 800, stringToElement("Earth"));
     enemies.push_back(e5);
 
-    Enemy e6(6, "Golem", 30, 5, 1000);
+    Enemy e6(6, "Golem", 30, 5, 1000, stringToElement("Earth"));
     enemies.push_back(e6);
 
-    Enemy e7(7, "Unicorn", 5, 8, 1500);
+    Enemy e7(7, "Unicorn", 5, 8, 1500, stringToElement("Wood"));
     enemies.push_back(e7);
 
-    Enemy e8(8, "Jungle Dragon", 100, 10, 3000);
+    Enemy e8(8, "Jungle Dragon", 100, 10, 3000, stringToElement("Fire"));
     enemies.push_back(e8);
 
     return enemies;

@@ -11,10 +11,9 @@ enum class Element{
 };
 
 
-class ElementLogic {
-public:
-    static float getDamageMultiplier(Element attacker, Element defender);
-};
+
+
+float getDamageMultiplier(Element attacker, Element defender);
 
 Element stringToElement(const std::string& element);
 

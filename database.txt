@@ -10,6 +10,7 @@ create table hero (
     damage int not null,
     strength int not null,
     gold int not null,
+    mana int not null,
     primary key (name)
 
 );
@@ -20,6 +21,7 @@ CREATE TABLE spells_list (
     name VARCHAR(125) NOT NULL,
     damage INT NOT NULL,
     element VARCHAR(50) NOT NULL,
+    mana INT NOT NULL,
     gold_price INT NOT NULL,
     required_spell_id INT,
     FOREIGN KEY (required_spell_id) REFERENCES spells_list(spell_id)
@@ -34,24 +36,24 @@ CREATE TABLE hero_spells (
     FOREIGN KEY (spell_id) REFERENCES spells_list(spell_id) ON DELETE CASCADE
 );
 
-INSERT INTO spells_list (name, damage, element, gold_price, required_spell_id) VALUES
-('Flame Burst', 15, 'Fire', 500, NULL),
-('Aqua Shot', 15, 'Water', 500, NULL),
-('Bark Spear', 15, 'Wood', 500, NULL),
-('Stone Fist', 15, 'Earth', 500, NULL),
-('Metal Shard', 15, 'Metal', 500, NULL),
-('Inferno Swipe', 30, 'Fire', 750, 1),
-('Tidal Wave', 30, 'Water', 750, 2),
-('Vine Grasp', 30, 'Wood', 750, 3),
-('Earthquake', 30, 'Earth', 750, 4),
-('Iron Maiden', 30, 'Metal', 750, 5),
-('Dragon\'s Breath', 50, 'Fire', 1250, 6),
-('Monsoon', 50, 'Water', 1250, 7),
-('Entangle', 50, 'Wood', 1250, 8),
-('LandSlide', 50, 'Earth', 1250, 9),
-('Steel Storm', 50, 'Metal', 1250, 10),
-('Helios\' Inferno', 70, 'Fire', 1500, 11),
-('Poseidon\'s Tsunami', 70, 'Water', 1500, 12),
-('Dionysus\' Vine', 70, 'Wood', 1500, 13),
-('Gaia\'s Tremor', 70, 'Earth', 1500, 14),
-('Hephaestus\' Forge', 70, 'Metal', 1500, 15);
+INSERT INTO spells_list (name, damage, element, mana ,gold_price, required_spell_id) VALUES
+('Flame Burst', 15 ,'Fire', 5, 500, NULL),
+('Aqua Shot', 15, 'Water', 5 , 500, NULL),
+('Bark Spear', 15, 'Wood', 5 , 500, NULL),
+('Stone Fist', 15,  'Earth', 5 ,500, NULL),
+('Metal Shard', 15, 'Metal', 5 , 500, NULL),
+('Inferno Swipe', 30,  'Fire', 10 , 750, 1),
+('Tidal Wave', 30, 'Water', 10 , 750, 2),
+('Vine Grasp', 30, 'Wood', 10 ,750, 3),
+('Earthquake', 30, 'Earth', 10 , 750, 4),
+('Iron Maiden', 30, 'Metal', 10 ,750, 5),
+('Dragon\'s Breath', 50, 'Fire', 15, 1250, 6),
+('Monsoon', 50, 'Water', 15, 1250, 7),
+('Entangle', 50, 'Wood', 15,1250, 8),
+('LandSlide', 50, 'Earth', 15,1250, 9),
+('Steel Storm', 50, 'Metal', 15, 1250, 10),
+('Helios\' Inferno', 70, 'Fire', 20, 1500, 11),
+('Poseidon\'s Tsunami', 70, 'Water', 20, 1500, 12),
+('Dionysus\' Vine', 70, 'Wood',20, 1500, 13),
+('Gaia\'s Tremor', 70, 'Earth',20, 1500, 14),
+('Hephaestus\' Forge', 70, 'Metal',20, 1500, 15);

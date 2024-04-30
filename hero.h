@@ -12,7 +12,7 @@ class Hero{
 
     public:
         Hero();
-        Hero(std::string name, int xp, int level, int maxHP, int strength, int gold);
+        Hero(std::string name, int xp, int level, int maxHP, int strength, int gold, int mana);
         
         std::string getName();
 
@@ -21,7 +21,8 @@ class Hero{
         int getDamage();
 
 
-        //Awarded xp and current1
+
+        //Awarded xp and current
         int getXP();
         int XPreward(int XP);
 
@@ -43,6 +44,11 @@ class Hero{
 
         //Spells;
 
+        int getMana();
+        int resetMana();
+        int useMana(int mana);
+        int getCurrentMana();
+
         void learnSpell(std::shared_ptr<Spell> spell);
         bool hasSpell(int spellId) const;
         const std::vector<std::shared_ptr<Spell>>& getSpells() const;
@@ -56,6 +62,8 @@ class Hero{
         int _damage;
         int _strength; 
         int _gold;
+        int _mana;
+        int _currentMana;
         std::vector<std::shared_ptr<Spell>> spells;
 
 

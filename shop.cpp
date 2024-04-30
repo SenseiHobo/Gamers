@@ -14,7 +14,7 @@ void Shop::displayAndBuySpells(Hero& god){
     
     for(const auto& spell : spells) {
         std::string requiredSpell = spell->getRequired() ?  spell -> getRequired()->getName() : "None";
-        std::cout << index++ << ". " << spell->getName() << " - Damage: " << spell-> getDamage() << "- Element: " << elementToString(spell-> getElement()) <<  " - Cost: " << spell->getGoldPrice() << " Gold" << "- requirements: " << requiredSpell << std::endl << std::endl; 
+        std::cout << index++ << ". " << spell->getName() << " - Damage: " << spell-> getDamage() << "- Element: " << elementToString(spell-> getElement()) <<  " - Mana: " << spell->getManaCost() <<" - Cost: " << spell->getGoldPrice() << " Gold" << "- requirements: " << requiredSpell << std::endl << std::endl; 
     }
 
 

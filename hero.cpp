@@ -3,8 +3,8 @@
 #include "hero.h"
 
 
-Hero::Hero() : _name("Unknown"), _xp(0), _level(1), _maxHP(10), _currentHP(_maxHP), _damage(_strength), _strength(2), _gold(0) {}
-Hero::Hero(std::string name, int level, int xp, int maxHP, int strength, int gold) : _name(name), _level(level), _xp(xp), _maxHP(maxHP), _currentHP(_maxHP), _damage(_strength), _strength(strength), _gold(gold) {}
+Hero::Hero() : _name("Unknown"), _xp(0), _level(1), _maxHP(10), _currentHP(_maxHP), _damage(_strength), _strength(2), _gold(0), _mana(10), _currentMana(_mana)  {}
+Hero::Hero(std::string name, int level, int xp, int maxHP, int strength, int gold, int mana) : _name(name), _level(level), _xp(xp), _maxHP(maxHP), _currentHP(_maxHP), _damage(_strength), _strength(strength), _gold(gold), _mana(mana), _currentMana(_mana) {}
 
 
 int Hero::getDamage(){
@@ -44,6 +44,21 @@ int Hero::getGold(){
     return _gold;
 }
 
+int Hero::getMana(){
+    return _mana;
+}
+
+int Hero::useMana(int mana){
+    return _currentMana -= mana;
+}
+
+int Hero::getCurrentMana(){
+    return _currentMana;
+}
+
+int Hero::resetMana(){
+    return _currentMana = _mana;
+}
 void Hero::resetHealth(){
     _currentHP = _maxHP; 
 }
@@ -62,6 +77,7 @@ void Hero::levelup(){
         _level += 1;
         _strength += 1; 
         _maxHP += 2; 
+        _mana += 2;
         std::cout << " You have leveled up " << std::endl;
         std::cout << " You are now level: " << _level << std::endl;    
     }

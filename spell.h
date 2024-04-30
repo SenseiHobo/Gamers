@@ -12,7 +12,7 @@
 class Spell{
 
     public:
-        Spell(int id, std::string name, int damage, Element element, int gold_price, std::shared_ptr<Spell> require = nullptr); 
+       Spell(int id, std::string name, int damage, Element element, int gold_price, std::shared_ptr<Spell> require = nullptr, int mana = 0); 
 
 
         int getID() const;
@@ -20,6 +20,7 @@ class Spell{
         Element getElement() const;
         int getGoldPrice() const;
         std::shared_ptr<Spell> getRequired() const;
+        int getManaCost() const;
         std::string getName() const;
 
     private:
@@ -28,6 +29,7 @@ class Spell{
         int _damage;
         Element _element;
         int _gold_price;
+        int _mana_cost;
         std::shared_ptr<Spell> _require; 
 
 };

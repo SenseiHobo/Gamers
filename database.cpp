@@ -28,7 +28,9 @@ void createHero(){
         qDebug() << "Database connection failed";
     }
 
-    int xp = 0 , level = 1, maxHP = 10, damage = 2, strength = 2; int gold = 0;
+    int xp = 0 , level = 1, maxHP = 10, damage = 2, strength = 2, gold = 0, mana = 10;
+    
+
     std::string name;
 
     std::cout << "Indtast din Helt navn: "; 
@@ -36,9 +38,9 @@ void createHero(){
     std::cout << std::endl; 
 
     QSqlQuery query;
-    query.prepare("INSERT INTO hero (name, level, xp, maxHP, damage, strength, gold) VALUES (:name, :level, :xp, :maxHP, :damage, :strength, :gold)");
+    query.prepare("INSERT INTO hero (name, level, xp, maxHP, damage, strength, gold, mana) VALUES (:name, :level, :xp, :maxHP, :damage, :strength, :gold, :mana)");
 
-// Bind values to the named placeholders
+
     query.bindValue(":name", QString::fromStdString(name));
     query.bindValue(":level", level);
     query.bindValue(":xp", xp);
@@ -46,6 +48,7 @@ void createHero(){
     query.bindValue(":damage", damage);
     query.bindValue(":strength", strength);
     query.bindValue(":gold", gold);
+    query.bindValue(":mana", mana);
 
     if (!query.exec()) {
         qDebug() << "Failed to insert hero into database:" << query.lastError().text();
@@ -78,8 +81,9 @@ void ShowHeroes(){
             int damage = query.value(4).toInt();
             int strength = query.value(5).toInt();
             int gold = query.value(6).toInt();
+            int mana = query.value(7).toInt();
 
-            qDebug() << "Hero name: " << name << " Level: " << Level << "xp " << xp << "maxHP: " << maxHP << "Damage: " << damage << "strength: " << strength << "Gold: " << gold;
+            qDebug() << "Hero name: " << name << " Level: " << Level << "xp " << xp << "maxHP: " << maxHP << " Mana " << mana << "Damage: " << damage << "strength: " << strength << "Gold: " << gold;
         }
     } else {
         qDebug() << "Error executing query:" << query.lastError().text();
@@ -91,6 +95,7 @@ void ShowHeroes(){
 
 
 const std::vector<std::shared_ptr<Spell>>& spells = createSpells();
+
 
 void loadHero(const std::vector<std::shared_ptr<Spell>>& spells) {
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
@@ -110,13 +115,13 @@ void loadHero(const std::vector<std::shared_ptr<Spell>>& spells) {
 
     QString qName = QString::fromStdString(name);
     QSqlQuery query;
-    query.prepare("SELECT level, xp, maxHP, damage, strength, gold FROM hero WHERE name = :name");
+    query.prepare("SELECT level, xp, maxHP, damage, strength, gold, mana FROM hero WHERE name = :name");
     query.bindValue(":name", qName);
 
 
     if (query.exec()) {
         if (query.next()) {
-            god = Hero(name, query.value(0).toInt(), query.value(1).toInt(), query.value(2).toInt(), query.value(4).toInt(), query.value(5).toInt());
+            god = Hero(name, query.value(0).toInt(), query.value(1).toInt(), query.value(2).toInt(), query.value(4).toInt(), query.value(5).toInt(), query.value(6).toInt());
 
             // Create a map from spell ID to spell for quick lookup
             std::unordered_map<int, std::shared_ptr<Spell>> spellMap;
@@ -186,30 +191,27 @@ void deleteHero(){
 
 }
 
-#include <QSqlQuery>
-#include <QDebug>
-#include <QVariant>
-
 void saveCharacter(Hero &god){
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("localhost");
     db.setDatabaseName("hobo_adventure");
-    db.setUserName(QString::fromStdString(username));  // Replace with your username
-    db.setPassword(QString::fromStdString(password));  // Replace with your password
+    db.setUserName(QString::fromStdString(username)); 
+    db.setPassword(QString::fromStdString(password));  
     if (!db.open()) {
         qDebug() << "Database connection failed";
-        return;  // Exit the function if connection fails
+        return;
     }
 
     // Update hero details
     QSqlQuery query(db);
-    query.prepare("UPDATE hero SET level = :level, xp = :xp, maxHP = :maxHP, damage = :damage, strength = :strength, gold = :gold WHERE name = :name");
+    query.prepare("UPDATE hero SET level = :level, xp = :xp, maxHP = :maxHP, damage = :damage, strength = :strength, gold = :gold, mana = :mana WHERE name = :name");
     query.bindValue(":level", god.getlevel());
     query.bindValue(":xp", god.getXP());
     query.bindValue(":maxHP", god.getMaxHP());
     query.bindValue(":damage", god.getDamage());
     query.bindValue(":strength", god.getStrength());
     query.bindValue(":gold", god.getGold());
+    query.bindValue(":mana", god.getMana());
     query.bindValue(":name", QString::fromStdString(god.getName()));
 
     if (!query.exec()) {
@@ -267,14 +269,14 @@ std::vector<std::shared_ptr<Spell>> createSpells() {
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("localhost");
     db.setDatabaseName("hobo_adventure");
-     db.setUserName(QString::fromStdString(username));  // Replace with your username
-    db.setPassword(QString::fromStdString(password));  // Replace with your password
+     db.setUserName(QString::fromStdString(username));  
+    db.setPassword(QString::fromStdString(password));  
     if (!db.open()) {
         qDebug() << "Database connection failed";
         return {};
     }
 
-    QSqlQuery query("SELECT spell_id, name, damage, element, gold_price, required_spell_id FROM spells_list");
+    QSqlQuery query("SELECT spell_id, name, damage, element, gold_price, required_spell_id, mana FROM spells_list");
     if (!query.exec()) {
         qDebug() << "Failed to query spells from database:" << query.lastError().text();
         return {};
@@ -290,6 +292,7 @@ std::vector<std::shared_ptr<Spell>> createSpells() {
         Element element = stringToElement(query.value(3).toString().toStdString());
         int goldPrice = query.value(4).toInt();
         QVariant reqId = query.value(5);
+        int mana = query.value(6).toInt();
 
         std::shared_ptr<Spell> requiredSpell = nullptr;
         if (!reqId.isNull()) {
@@ -299,7 +302,7 @@ std::vector<std::shared_ptr<Spell>> createSpells() {
             }
         }
 
-        std::shared_ptr<Spell> newSpell = std::make_shared<Spell>(id, name, damage, element, goldPrice, requiredSpell);
+        std::shared_ptr<Spell> newSpell = std::make_shared<Spell>(id, name, damage, element, goldPrice, requiredSpell, mana);
         spellList.push_back(newSpell);
         spellMap[id] = newSpell;
     }

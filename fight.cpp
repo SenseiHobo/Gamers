@@ -15,7 +15,7 @@ void fight(Hero& god, Enemy& enemy) {
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         // Display current health
-        std::cout << god.getName() << " HP: " << god.getCurrentHP() << " | " 
+        std::cout << god.getName() << " HP: " << god.getCurrentHP() << "    Mana: " << god.getCurrentMana() << " | " 
                   << enemy.getName() << " HP: " << enemy.getHealth() << std::endl;
 
         // Player chooses attack type
@@ -37,20 +37,25 @@ void fight(Hero& god, Enemy& enemy) {
                 std::cout << "Select a spell to cast:" << std::endl;
                 for (int i = 0; i < god.getSpells().size(); ++i) {
                     std::cout << i + 1 << ". " << god.getSpells()[i]->getName() 
-                              << " (Damage: " << god.getSpells()[i]->getDamage() << ")" << std::endl;
+                              << " (Damage: " << god.getSpells()[i]->getDamage() 
+                              << ", Mana Cost: " << god.getSpells()[i] -> getManaCost() << ")" <<std::endl;
                 }
                 int spellIndex;
                 std::cin >> spellIndex;
                 spellIndex--;  
                 if (spellIndex >= 0 && spellIndex < god.getSpells().size()) {
                     auto& spell = god.getSpells()[spellIndex];
-
-                    float mult = getDamageMultiplier(spell->getElement(), enemy.getElement());
-
-                    damage = spell->getDamage() * mult;
-                    std::cout << god.getName() << " casts " << spell->getName() 
-                              << ", dealing " << damage << " damage." << std::endl;
-                    enemy.takeDamage(damage);
+                    if(god.getMana() >= spell->getManaCost()){
+                        god.useMana(spell->getManaCost());
+                        float mult = getDamageMultiplier(spell->getElement(), enemy.getElement());
+                        damage = spell->getDamage() * mult;
+                        std::cout << god.getName() << " casts " << spell->getName() 
+                                << ", dealing " << damage << " damage." << std::endl;
+                        enemy.takeDamage(damage);
+                    } else {
+                        std::cout << "Not enough mana to cast " << spell->getName() << "." << std::endl;
+                        continue; 
+                    }
                 } else {
                     std::cout << "Invalid spell selection." << std::endl;
                     continue;  // Skip enemy turn if input is invalid

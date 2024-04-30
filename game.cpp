@@ -32,7 +32,7 @@ void start_game(Hero &god, std::vector<Enemy> &enemies) {
 
         switch (choice) {
             case 1:
-                std::cout << god.getName() << " - " << "Level: " << god.getlevel() << "   XP: " << god.getXP() << "     Current Health " << god.getCurrentHP() << "/" << god.getMaxHP() << "     Damage: " <<  god.getDamage() << "      Gold: "  << god.getGold() <<  std::endl;
+                std::cout << god.getName() << " - " << "Level: " << god.getlevel() << "   XP: " << god.getXP() << "     Current Health " << god.getCurrentHP() << "/" << god.getMaxHP() << "     Mana: " << god.getMana()  << "     Damage: " <<  god.getDamage() << "      Gold: "  << god.getGold() <<  std::endl;
                 break;
             case 2:
                 printEnemies();

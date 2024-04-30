@@ -1,7 +1,7 @@
 #include "shop.h"
 #include "Tool.h"
 #include <iostream> 
-
+#include "element.h"
 
 Shop::Shop(const std::vector<std::shared_ptr<Spell>>& spellsAvailable) : spells(spellsAvailable) {}
 
@@ -14,7 +14,7 @@ void Shop::displayAndBuySpells(Hero& god){
     
     for(const auto& spell : spells) {
         std::string requiredSpell = spell->getRequired() ?  spell -> getRequired()->getName() : "None";
-        std::cout << index++ << ". " << spell->getName() << " - Damage: " << spell->getDamage() <<  " - Cost: " << spell->getGoldPrice() << " Gold" << "- requirements: " << requiredSpell << std::endl << std::endl; 
+        std::cout << index++ << ". " << spell->getName() << " - Damage: " << spell-> getDamage() << "- Element: " << elementToString(spell-> getElement()) <<  " - Cost: " << spell->getGoldPrice() << " Gold" << "- requirements: " << requiredSpell << std::endl << std::endl; 
     }
 
 

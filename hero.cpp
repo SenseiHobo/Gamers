@@ -74,7 +74,7 @@ void Hero::levelup(){
         _xp -= 1000;
         _level += 1;
         _strength += 1; 
-        _maxHP += 2; 
+        _maxHP += 3; 
         _mana += 2;
         std::cout << " You have leveled up " << std::endl;
         std::cout << " You are now level: " << _level << std::endl;    

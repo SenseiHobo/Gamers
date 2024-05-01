@@ -39,25 +39,25 @@ std::vector<Enemy> setupEnemies(){
     Enemy e1(1, "slime", 4, 1, 100, stringToElement("Water"));
     enemies.push_back(e1);
     
-    Enemy e2(2, "zombie", 4, 2, 200, stringToElement("Metal"));
+    Enemy e2(2, "zombie", 6, 2, 200, stringToElement("Metal"));
     enemies.push_back(e2);
 
-    Enemy e3(3, "Blood Crawl", 8, 3, 400, stringToElement("Wood"));
+    Enemy e3(3, "Blood Crawler", 8, 3, 400, stringToElement("Wood"));
     enemies.push_back(e3);
 
-    Enemy e4(4, "Harpy", 10, 4, 500, stringToElement("Metal"));
+    Enemy e4(4, "Harpy", 15, 4, 500, stringToElement("Metal"));
     enemies.push_back(e4);
 
-    Enemy e5(5, "Corruptor", 15, 5, 800, stringToElement("Earth"));
+    Enemy e5(5, "Corruptor", 20, 5, 800, stringToElement("Earth"));
     enemies.push_back(e5);
 
     Enemy e6(6, "Golem", 30, 5, 1000, stringToElement("Earth"));
     enemies.push_back(e6);
 
-    Enemy e7(7, "Unicorn", 5, 8, 1500, stringToElement("Wood"));
+    Enemy e7(7, "Unicorn", 30, 8, 1500, stringToElement("Wood"));
     enemies.push_back(e7);
 
-    Enemy e8(8, "Jungle Dragon", 100, 10, 3000, stringToElement("Fire"));
+    Enemy e8(8, "Jungle Dragon", 150, 15, 3000, stringToElement("Fire"));
     enemies.push_back(e8);
 
     return enemies;

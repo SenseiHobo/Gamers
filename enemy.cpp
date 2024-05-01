@@ -66,7 +66,7 @@ std::vector<Enemy> setupEnemies(){
 
 
 void printEnemies(){
-    
+    system("clear");
     std::vector<Enemy> enemies = setupEnemies();
     
     for (const Enemy& enemy : enemies) {

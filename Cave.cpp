@@ -1,3 +1,4 @@
+#include <sstream>
 #include "fight.h"
 #include "Cave.h"
 #include "Tool.h"
@@ -31,6 +32,7 @@ void Cave::addEnemy(Enemy &Enemy){
 
 
 void printCaves(){
+    system("clear");
     std::vector<Cave> Caves = setupCaves();
 
     for(const Cave &Cave : Caves){
@@ -75,7 +77,6 @@ const std::vector<Enemy> & Cave::getEnemies() const{
 
 
 bool Cave::isCleared(){
-    std::cout << "Cave Cleared Flag: " << _cleared << std::endl;
     return _cleared;
 }
 
@@ -87,7 +88,7 @@ void Cave::markCleared(){
 void cave_select(){
 
     int choice = 0; 
-    std::cout << "Enter the id of the cave you want to clear: ";
+    std::cout << "Enter the id of the cave you want to clear or 0 to exit: ";
     choice = getNumericInput();
     std::cout << std::endl;
 
@@ -97,7 +98,9 @@ void cave_select(){
         if(selectedCave.isCleared() == true){
             std::cout << "This cave has not been reset" << std::endl;
         } else {
-            std::cout << "Entering " << selectedCave.getName() << std::endl;
+            std::ostringstream message;
+            message << "Entering " << selectedCave.getName() << std::endl << std::endl;
+            slow_print(message.str());
             selectedCave.printCaveEnemies();
             
             Cavefight(god, selectedCave);
@@ -106,8 +109,10 @@ void cave_select(){
             selectedCave.markCleared();  
             god.addGold(selectedCave.getGold());           
         }
+    } else if(choice == 0){
     } else {
-        std::cout << "Invalid choice, try again" << std::endl;
+         std::cout << "Invalid choice, try again" << std::endl;
+         cave_select();
     }
     
 

@@ -64,9 +64,7 @@ void Hero::resetHealth(){
 }
 
 int Hero::XPreward(int XP){
-    std::cout << "Current XP: " << _xp << ", Adding XP: " << XP << std::endl;
     _xp += XP;
-    std::cout << "New XP: " << _xp << std::endl;
     return _xp;
 }
 
@@ -91,7 +89,6 @@ void Hero::takeDamage(int damage){
 
 void Hero::learnSpell(std::shared_ptr<Spell> spell){
     spells.push_back(spell);
-    std::cout << "Learned new spell: " << spell-> getName() << std::endl;
 }
 
 bool Hero::hasSpell(int spellId) const{
@@ -107,5 +104,13 @@ const std::vector<std::shared_ptr<Spell>>& Hero::getSpells() const {
         return spells;
     }
 
+
+void Hero::showStats(){
+    system("clear");
+    std::cout << god.getName() << " - " << "Level: "
+     << god.getlevel() << "   XP: " << god.getXP() << "     Current Health "
+    << god.getCurrentHP() << "/" << god.getMaxHP() << "     Mana: " << god.getMana()  << "     Damage: " 
+    <<  god.getDamage() << "      Gold: "  << god.getGold() <<  std::endl << std::endl;
+}
 
 Hero god; 

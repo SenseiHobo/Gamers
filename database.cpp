@@ -7,11 +7,13 @@
 #include <string>
 #include <unordered_map>
 #include <vector> 
+#include <cstdlib> 
 
 #include "hero.h"
 #include "menu.h"
 #include "game.h"
 #include "element.h"
+#include "Tool.h"
 
 
 std::string username = "sammy";
@@ -28,12 +30,19 @@ void createHero(){
         qDebug() << "Database connection failed";
     }
 
+    system("clear");
+
     int xp = 0 , level = 1, maxHP = 10, damage = 2, strength = 2, gold = 0, mana = 10;
     
+    
+
 
     std::string name;
 
-    std::cout << "Indtast din Helt navn: "; 
+    slow_print("You are creating a new Hero");
+    std::cout << std::endl << std::endl; 
+
+    slow_print("Indtast din Helts navn: "); 
     std::cin >> name;
     std::cout << std::endl; 
 
@@ -56,12 +65,12 @@ void createHero(){
         qDebug() << "Hero successfully created in database.";
     }
 
+    db.close();
     selector();
 }
 
 
 void ShowHeroes(){
-
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("localhost");
     db.setDatabaseName("hobo_adventure");
@@ -70,6 +79,11 @@ void ShowHeroes(){
     if (!db.open()) {
         qDebug() << "Database connection failed";
     }
+
+    system("clear");
+
+    slow_print("You are looking at current Heroes");
+    std::cout << std::endl << std::endl;
 
     QSqlQuery query;
     if (query.exec("SELECT * FROM hero")) {
@@ -83,12 +97,13 @@ void ShowHeroes(){
             int gold = query.value(6).toInt();
             int mana = query.value(7).toInt();
 
-            qDebug() << "Hero name: " << name << " Level: " << Level << "xp " << xp << "maxHP: " << maxHP << " Mana " << mana << "Damage: " << damage << "strength: " << strength << "Gold: " << gold;
+            qDebug() << "Hero name: " << name << "|  Level: " << Level << "|  xp " << xp << "|  maxHP: " << maxHP << "|  Mana: " << mana << "|  Damage: " << damage << "|  strength: " << strength << "|  Gold: " << gold;
         }
     } else {
         qDebug() << "Error executing query:" << query.lastError().text();
     }
 
+    db.close();
     std::cout << std::endl << std::endl; 
     selector();
 }
@@ -108,8 +123,12 @@ void loadHero(const std::vector<std::shared_ptr<Spell>>& spells) {
         return;
     }
 
+
+    slow_print("You are loading an existing hero");
+    std::cout << std::endl;
+
     std::string name;
-    std::cout << "Enter the name of the hero you want to play as: ";
+    slow_print("Enter the name of the hero you want to play as: ");
     std::cin >> name;
     std::cout << std::endl;
 
@@ -150,7 +169,7 @@ void loadHero(const std::vector<std::shared_ptr<Spell>>& spells) {
     }
 
     db.close();
-
+    system("clear");
     std::vector<Enemy> enemies = setupEnemies();
     start_game(god, enemies);
 
@@ -160,8 +179,6 @@ void loadHero(const std::vector<std::shared_ptr<Spell>>& spells) {
 
 
 void deleteHero(){
-
-
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("localhost");
     db.setDatabaseName("hobo_adventure");
@@ -171,8 +188,10 @@ void deleteHero(){
         qDebug() << "Database connection failed";
     }
 
+
+
     std::string name;
-    std::cout << "Enter the name of the hero to delete: ";
+    slow_print("Enter the name of the hero to delete: ");
     std::cin >> name;
     std::cout << std::endl;
 
@@ -180,12 +199,14 @@ void deleteHero(){
     query.prepare("DELETE FROM hero WHERE name = :name");
     query.bindValue(":name", QString::fromStdString(name));
 
+    system("clear");
     if (!query.exec()) {
         qDebug() << "Failed to delete hero from database:" << query.lastError().text();
     } else {
         qDebug() << "Hero successfully deleted from database.";
     }
 
+    db.close();
     selector();
 
 
@@ -201,6 +222,8 @@ void saveCharacter(Hero &god){
         qDebug() << "Database connection failed";
         return;
     }
+
+    system("clear");
 
     // Update hero details
     QSqlQuery query(db);
@@ -230,7 +253,7 @@ void saveCharacter(Hero &god){
         query.bindValue(":hero_name", QString::fromStdString(god.getName()));
 
         if (!query.exec()) {
-            qDebug() << "Error inserting spell:" << query.lastError().text();
+            //qDebug() << "Error inserting spell:" << query.lastError().text();
         } else {
             qDebug() << "Spell inserted/updated successfully for hero: " << QString::fromStdString(god.getName());
         }

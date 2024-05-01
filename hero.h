@@ -16,6 +16,8 @@ class Hero{
         
         std::string getName();
 
+        void showStats();
+
         //Damage;
         int getStrength();
         int getDamage();

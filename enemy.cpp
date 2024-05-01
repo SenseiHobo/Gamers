@@ -2,6 +2,7 @@
 
 #include "enemy.h"
 #include "database.h"
+#include "element.h"
 
 
 Enemy::Enemy(int id, std::string name, int health, int strength, int xp, Element element) : _id(id) ,_name(name), _health(health), _strength(strength), _xp(xp), _currentHP(_health), _element(element) {}
@@ -27,7 +28,7 @@ int Enemy::getID() const{
     return _id;
 }
 
-Element Enemy::getElement(){
+Element Enemy::getElement() const{
     return _element;
 }
 
@@ -71,7 +72,7 @@ void printEnemies(){
     
     for (const Enemy& enemy : enemies) {
         std::cout<< "Id: " << enemy.getID() << ", Name: " << enemy.getName() << ", Health: " << enemy.getHealth()
-                << ", Strength: " << enemy.getStrength() << ", XP: " << enemy.getXP() << std::endl;
+                << ", Strength: " << enemy.getStrength() << ", Element: " <<  elementToString(enemy.getElement()) <<", XP: " << enemy.getXP() << std::endl;
     }
     std::cout << std::endl << std::endl; 
 

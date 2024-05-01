@@ -10,7 +10,7 @@
 #include "game.h"
 #include "Cave.h"
 #include "shop.h"
-
+#include "Intro.h"
 
 
 void start_game(Hero &god, std::vector<Enemy> &enemies) {
@@ -34,9 +34,11 @@ void start_game(Hero &god, std::vector<Enemy> &enemies) {
         std::cout << "____________________" << std::endl;
         std::cout << "5. Take a nap" << std::endl;
         std::cout << "____________________" << std::endl;
-        std::cout << "6. Save your character  " << std::endl;
+        std::cout << "6. Element table" << std::endl;
         std::cout << "____________________" << std::endl;
-        std::cout << "7. Exit game " << std::endl;
+        std::cout << "7. Save your character  " << std::endl;
+        std::cout << "____________________" << std::endl;
+        std::cout << "8. Exit game " << std::endl;
         std::cout << "____________________" << std::endl << std::endl;
         std::cout << "Enter your choice: ";
 
@@ -67,9 +69,12 @@ void start_game(Hero &god, std::vector<Enemy> &enemies) {
                 delay();
                 break;
             case '6':
-                saveCharacter(god);
+                weakness();
                 break;
             case '7':
+                saveCharacter(god);
+                break;
+            case '8':
                 system("clear");
                 gameRunning = false;
                 break;

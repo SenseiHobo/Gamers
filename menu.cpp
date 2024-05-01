@@ -2,6 +2,7 @@
 #include <cstdlib> 
 #include "menu.h"
 #include "database.h"
+#include "Intro.h"
 #include "Tool.h"
 
 auto spell = createSpells();
@@ -22,7 +23,7 @@ void start(){
 
     if(a == '1'){
         system("clear");
-        selector();
+        tutorial();
     } else {
         start();
     }

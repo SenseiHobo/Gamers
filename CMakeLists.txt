@@ -11,7 +11,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 find_package(Qt5 COMPONENTS Core Sql REQUIRED)
 
 # Define the executable and list all the source files
-add_executable(MainTest Cave.cpp database.cpp element.cpp enemy.cpp fight.cpp game.cpp hero.cpp main.cpp menu.cpp shop.cpp spell.cpp Tool.cpp)
+add_executable(MainTest Cave.cpp database.cpp Intro.cpp element.cpp enemy.cpp fight.cpp game.cpp hero.cpp main.cpp menu.cpp shop.cpp spell.cpp Tool.cpp)
 
 # Link the executable with the required Qt modules
 target_link_libraries(MainTest Qt5::Core Qt5::Sql)

@@ -101,8 +101,6 @@ void fight(Hero& god, Enemy& enemy) {
             }
 
             enemy.HealthReset();
-            god.resetHealth();
-            god.resetMana();
             break;
         }
 

@@ -32,9 +32,11 @@ void start_game(Hero &god, std::vector<Enemy> &enemies) {
         std::cout << "____________________" << std::endl;
         std::cout << "4. Buy spells" << std::endl;
         std::cout << "____________________" << std::endl;
-        std::cout << "5. Save your character  " << std::endl;
+        std::cout << "5. Take a nap" << std::endl;
         std::cout << "____________________" << std::endl;
-        std::cout << "6. Exit game " << std::endl;
+        std::cout << "6. Save your character  " << std::endl;
+        std::cout << "____________________" << std::endl;
+        std::cout << "7. Exit game " << std::endl;
         std::cout << "____________________" << std::endl << std::endl; 
         std::cout << "Enter your choice: ";
         choice = getNumericInput();
@@ -58,9 +60,14 @@ void start_game(Hero &god, std::vector<Enemy> &enemies) {
                 spellShop.displayAndBuySpells(god);
                 break;
             case 5: 
+                slow_print("You took a nap and feel energized");
+                god.resetHealth();
+                god.resetMana();
+                break;
+            case 6: 
                 saveCharacter(god);
                 break;
-            case 6:
+            case 7:
                 system("clear");
                 gameRunning = false; 
                 break;
@@ -80,5 +87,7 @@ void victory(){
     slow_print(message.str());
     Windelay();
     saveCharacter(god);
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cout << "Press Enter when you are ready for the game to shut down" << std::endl;
     exit(0);
 }

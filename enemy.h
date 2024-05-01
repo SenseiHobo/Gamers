@@ -17,7 +17,7 @@ public:
     int getID() const;
     void takeDamage(int damage);
     void HealthReset();
-    Element getElement();
+    Element getElement() const;
 
 private:
     std::string _name;

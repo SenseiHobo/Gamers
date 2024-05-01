@@ -14,21 +14,21 @@
 
 
 void start_game(Hero &god, std::vector<Enemy> &enemies) {
-
     std::vector<std::shared_ptr<Spell>> availableSpells = createSpells();
     Shop spellShop(availableSpells);
 
-    int choice = 0;
+    char choice;
     bool gameRunning = true;
-        slow_print("The game has now begun and you are playing as ");
-        std::cout << god.getName() << std::endl << std::endl;
+    slow_print("The game has now begun and you are playing as ");
+    std::cout << god.getName() << std::endl << std::endl;
+
     while (gameRunning) {
         std::cout << "____________________" << std::endl;
         std::cout << "1. Checkout stats " << std::endl;
         std::cout << "____________________" << std::endl;
         std::cout << "2. Fight an enemy " << std::endl;
         std::cout << "____________________" << std::endl;
-        std::cout << "3. Enter a cave" << std::endl; 
+        std::cout << "3. Enter a cave" << std::endl;
         std::cout << "____________________" << std::endl;
         std::cout << "4. Buy spells" << std::endl;
         std::cout << "____________________" << std::endl;
@@ -37,42 +37,44 @@ void start_game(Hero &god, std::vector<Enemy> &enemies) {
         std::cout << "6. Save your character  " << std::endl;
         std::cout << "____________________" << std::endl;
         std::cout << "7. Exit game " << std::endl;
-        std::cout << "____________________" << std::endl << std::endl; 
+        std::cout << "____________________" << std::endl << std::endl;
         std::cout << "Enter your choice: ";
-        choice = getNumericInput();
+
+        choice = getKeypress();
         std::cout << std::endl;
 
         switch (choice) {
-            case 1:
+            case '1':
                 god.showStats();
                 break;
-            case 2:
+            case '2':
                 printEnemies();
                 battleEnemy(enemies);
                 break;
-            case 3:
+            case '3':
                 printCaves();
                 cave_select();
                 break;
-            case 4:
+            case '4':
                 slow_print("Welcome to the Spell Shop!");
                 delay();
                 spellShop.displayAndBuySpells(god);
                 break;
-            case 5: 
+            case '5':
                 slow_print("You took a nap and feel energized");
                 god.resetHealth();
                 god.resetMana();
+                delay();
                 break;
-            case 6: 
+            case '6':
                 saveCharacter(god);
                 break;
-            case 7:
+            case '7':
                 system("clear");
-                gameRunning = false; 
+                gameRunning = false;
                 break;
-            
             default:
+                system("clear");
                 std::cout << "Invalid input try again" << std::endl;
                 break;
         }
@@ -85,9 +87,7 @@ void victory(){
     std::ostringstream message;
     message << "You have defeated the dragon congrats " << std::endl; 
     slow_print(message.str());
-    Windelay();
+    delay();
     saveCharacter(god);
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cout << "Press Enter when you are ready for the game to shut down" << std::endl;
     exit(0);
 }

@@ -24,8 +24,11 @@ void Shop::displayAndBuySpells(Hero& god){
 
 
     std::cout << "Enter the number of the spell you wish to purchase or 0 to exit: ";
+    
+    char cho;
     int choice;
-    choice = getNumericInput();
+    cho = getKeypress();
+    choice = cho - '0';
     if(choice > 0 && choice <= spells.size()){
         auto selectedSpell = spells[choice - 1];
         if(god.getGold() >= selectedSpell->getGoldPrice()) {

@@ -35,3 +35,27 @@ void delay(){
 void Windelay(){
     std::this_thread::sleep_for(std::chrono::seconds(2));
 }
+
+
+
+void enableRawMode() {
+    termios term;
+    tcgetattr(STDIN_FILENO, &term);
+    term.c_lflag &= ~(ICANON | ECHO);
+    tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
+
+void disableRawMode() {
+    termios term;
+    tcgetattr(STDIN_FILENO, &term);
+    term.c_lflag |= (ICANON | ECHO); 
+    tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
+
+int getKeypress() {
+    char c = 0;
+    enableRawMode();
+    c = getchar();
+    disableRawMode();
+    return c;
+}

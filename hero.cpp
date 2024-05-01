@@ -1,6 +1,8 @@
 #include <iostream> 
 #include <string> 
+#include <sstream>
 #include "hero.h"
+#include "Tool.h"
 
 
 Hero::Hero() : _name("Unknown"), _xp(0), _level(1), _maxHP(10), _currentHP(_maxHP), _damage(_strength), _strength(2), _gold(0), _mana(10), _currentMana(_mana)  {}
@@ -75,7 +77,9 @@ void Hero::levelup(){
         _level += 1;
         _strength += 1; 
         _maxHP += 3; 
+        _currentHP += 3;
         _mana += 2;
+        _currentMana += 2;
         std::cout << " You have leveled up " << std::endl;
         std::cout << " You are now level: " << _level << std::endl;    
     }
@@ -107,10 +111,14 @@ const std::vector<std::shared_ptr<Spell>>& Hero::getSpells() const {
 
 void Hero::showStats(){
     system("clear");
-    std::cout << god.getName() << " - " << "Level: "
+    std::ostringstream message;
+    message << god.getName() << " - " << "Level: "
      << god.getlevel() << "   XP: " << god.getXP() << "     Current Health "
-    << god.getCurrentHP() << "/" << god.getMaxHP() << "     Mana: " << god.getMana()  << "     Damage: " 
+    << god.getCurrentHP() << "/" << god.getMaxHP() << "     Mana: " << god.getCurrentMana() << "/"<<god.getMana()  << "     Damage: " 
     <<  god.getDamage() << "      Gold: "  << god.getGold() <<  std::endl << std::endl;
+
+    slow_print(message.str());
+    delay();
 }
 
 Hero god; 

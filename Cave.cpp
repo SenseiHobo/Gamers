@@ -87,9 +87,11 @@ void Cave::markCleared(){
 
 void cave_select(){
 
-    int choice = 0; 
+    char cho;
+    int choice; 
     std::cout << "Enter the id of the cave you want to clear or 0 to exit: ";
-    choice = getNumericInput();
+    cho = getKeypress();
+    choice = cho - '0';
     std::cout << std::endl;
 
     std::vector<Cave> caves = setupCaves();
@@ -105,7 +107,10 @@ void cave_select(){
             
             Cavefight(god, selectedCave);
 
-            std::cout << "You have cleared " << selectedCave.getName() << " and earned " << selectedCave.getGold() << " gold!" << std::endl;
+            message << "";
+            message.clear();
+            message << "You have cleared " << selectedCave.getName() << " and earned " << selectedCave.getGold() << " gold!" << std::endl;
+            slow_print(message.str());
             selectedCave.markCleared();  
             god.addGold(selectedCave.getGold());           
         }

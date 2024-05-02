@@ -9,8 +9,8 @@ Shop::Shop(const std::vector<std::shared_ptr<Spell>>& spellsAvailable) : spells(
 
 void Shop::displayAndBuySpells(Hero& god){
     system("clear");
-    slow_print("Here are the spells we sell: ");
-    delay();
+    Too.slow_print("Here are the spells we sell: ");
+    Too.delay();
     std::cout << std::endl;
 
     int index = 1;
@@ -27,7 +27,7 @@ void Shop::displayAndBuySpells(Hero& god){
     
     char cho;
     int choice;
-    cho = getKeypress();
+    cho = Too.getKeypress();
     choice = cho - '0';
     if(choice > 0 && choice <= spells.size()){
         auto selectedSpell = spells[choice - 1];
@@ -35,8 +35,8 @@ void Shop::displayAndBuySpells(Hero& god){
             if(god.hasSpell(selectedSpell->getID())){
                 std::ostringstream message;
                 message << "You already own this spell." << std::endl;
-                slow_print(message.str());
-                delay();
+                Too.slow_print(message.str());
+                Too.delay();
                 displayAndBuySpells(god);
             } else {
 
@@ -45,8 +45,8 @@ void Shop::displayAndBuySpells(Hero& god){
                     god.learnSpell(selectedSpell);
                     std::ostringstream message;
                     message << "You have successfully purchased " << selectedSpell->getName() << "!" << std::endl;  
-                    slow_print(message.str());
-                    delay();
+                    Too.slow_print(message.str());
+                    Too.delay();
                     displayAndBuySpells(god);
                 } else {
                     std::cout << "You need to learn " << selectedSpell->getRequired()->getName() << " first. " << std::endl;
@@ -57,7 +57,7 @@ void Shop::displayAndBuySpells(Hero& god){
         }
     } else if(choice == 0){
         system("clear");
-        slow_print("Come back another time!");
+        Too.slow_print("Come back another time!");
         std::cout << std::endl << std::endl;
     } else{
         std::cout << "Invalid Selection.";

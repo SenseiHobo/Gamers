@@ -7,19 +7,20 @@
 #include <unistd.h>
 
 
-int getNumericInput();
-
-void slow_print(const std::string& message);
-
-void delay();
-
-void Windelay();
-
+class Tool{
+    public: 
+        void slow_print(const std::string& message);
+        void delay();
+        void Windelay();
+        int getKeypress();
+};
 
 void enableRawMode();
 
 void disableRawMode();
 
-int getKeypress();
+
+
+extern Tool Too;
 
 #endif //TOOL_H

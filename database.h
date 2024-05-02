@@ -11,10 +11,19 @@
 #include "spell.h"
 #include "hero.h"
 
-void createHero();
-void ShowHeroes();
-void loadHero(const std::vector<std::shared_ptr<Spell>>& spells);
-void deleteHero();
-void saveCharacter(Hero &god);
-std::vector<std::shared_ptr<Spell>> createSpells();
+
+class Database{
+    public: 
+        void createHero();
+        void ShowHeroes();
+        void loadHero(const std::vector<std::shared_ptr<Spell>>& spells);
+        void deleteHero();
+        void saveCharacter(Hero &god);
+        std::vector<std::shared_ptr<Spell>> createSpells();
+
+};
+
+
+extern Database DB1;
+
 #endif //DATABASE_H

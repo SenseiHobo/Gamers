@@ -90,7 +90,7 @@ void cave_select(){
     char cho;
     int choice; 
     std::cout << "Enter the id of the cave you want to clear or 0 to exit: ";
-    cho = getKeypress();
+    cho = Too.getKeypress();
     choice = cho - '0';
     std::cout << std::endl;
 
@@ -102,15 +102,15 @@ void cave_select(){
         } else {
             std::ostringstream message;
             message << "Entering " << selectedCave.getName() << std::endl << std::endl;
-            slow_print(message.str());
+            Too.slow_print(message.str());
             selectedCave.printCaveEnemies();
             
-            Cavefight(god, selectedCave);
+            F1.Cavefight(god, selectedCave);
 
             message << "";
             message.clear();
             message << "You have cleared " << selectedCave.getName() << " and earned " << selectedCave.getGold() << " gold!" << std::endl;
-            slow_print(message.str());
+            Too.slow_print(message.str());
             selectedCave.markCleared();  
             god.addGold(selectedCave.getGold());           
         }

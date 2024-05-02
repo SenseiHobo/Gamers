@@ -13,13 +13,13 @@
 #include "Intro.h"
 
 
-void start_game(Hero &god, std::vector<Enemy> &enemies) {
-    std::vector<std::shared_ptr<Spell>> availableSpells = createSpells();
+void game::start_game(Hero &god, std::vector<Enemy> &enemies) {
+    std::vector<std::shared_ptr<Spell>> availableSpells = DB1.createSpells();
     Shop spellShop(availableSpells);
 
     char choice;
     bool gameRunning = true;
-    slow_print("The game has now begun and you are playing as ");
+    Too.slow_print("The game has now begun and you are playing as ");
     std::cout << god.getName() << std::endl << std::endl;
 
     while (gameRunning) {
@@ -42,7 +42,7 @@ void start_game(Hero &god, std::vector<Enemy> &enemies) {
         std::cout << "____________________" << std::endl << std::endl;
         std::cout << "Enter your choice: ";
 
-        choice = getKeypress();
+        choice = Too.getKeypress();
         std::cout << std::endl;
 
         switch (choice) {
@@ -51,28 +51,28 @@ void start_game(Hero &god, std::vector<Enemy> &enemies) {
                 break;
             case '2':
                 printEnemies();
-                battleEnemy(enemies);
+                F1.battleEnemy(enemies);
                 break;
             case '3':
                 printCaves();
                 cave_select();
                 break;
             case '4':
-                slow_print("Welcome to the Spell Shop!");
-                delay();
+                Too.slow_print("Welcome to the Spell Shop!");
+                Too.delay();
                 spellShop.displayAndBuySpells(god);
                 break;
             case '5':
-                slow_print("You took a nap and feel energized");
+                Too.slow_print("You took a nap and feel energized");
                 god.resetHealth();
                 god.resetMana();
-                delay();
+                Too.delay();
                 break;
             case '6':
-                weakness();
+                T1.weakness();
                 break;
             case '7':
-                saveCharacter(god);
+                DB1.saveCharacter(god);
                 break;
             case '8':
                 system("clear");
@@ -87,12 +87,14 @@ void start_game(Hero &god, std::vector<Enemy> &enemies) {
 }
 
 
-void victory(){
+void game::victory(){
 
     std::ostringstream message;
     message << "You have defeated the dragon congrats " << std::endl; 
-    slow_print(message.str());
-    delay();
-    saveCharacter(god);
+    Too.slow_print(message.str());
+    Too.delay();
+    DB1.saveCharacter(god);
     exit(0);
 }
+
+game G1;

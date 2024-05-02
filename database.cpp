@@ -20,7 +20,7 @@ std::string username = "sammy";
 std::string password = "#Superdeadcasp2004";
 
 
-void createHero(){
+void Database::createHero(){
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("localhost");
     db.setDatabaseName("hobo_adventure");
@@ -39,10 +39,10 @@ void createHero(){
 
     std::string name;
 
-    slow_print("You are creating a new Hero");
+    Too.slow_print("You are creating a new Hero");
     std::cout << std::endl << std::endl; 
 
-    slow_print("Indtast din Helts navn: "); 
+    Too.slow_print("Indtast din Helts navn: "); 
     std::cin >> name;
     std::cout << std::endl; 
 
@@ -66,11 +66,11 @@ void createHero(){
     }
 
     db.close();
-    selector();
+    M1.selector();
 }
 
 
-void ShowHeroes(){
+void Database::ShowHeroes(){
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("localhost");
     db.setDatabaseName("hobo_adventure");
@@ -82,7 +82,7 @@ void ShowHeroes(){
 
     system("clear");
 
-    slow_print("You are looking at current Heroes");
+    Too.slow_print("You are looking at current Heroes");
     std::cout << std::endl << std::endl;
 
     QSqlQuery query;
@@ -105,14 +105,14 @@ void ShowHeroes(){
 
     db.close();
     std::cout << std::endl << std::endl; 
-    selector();
+    M1.selector();
 }
 
 
-const std::vector<std::shared_ptr<Spell>>& spells = createSpells();
+const std::vector<std::shared_ptr<Spell>>& spells = DB1.createSpells();
 
 
-void loadHero(const std::vector<std::shared_ptr<Spell>>& spells) {
+void Database::loadHero(const std::vector<std::shared_ptr<Spell>>& spells) {
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("localhost");
     db.setDatabaseName("hobo_adventure");
@@ -124,11 +124,11 @@ void loadHero(const std::vector<std::shared_ptr<Spell>>& spells) {
     }
 
 
-    slow_print("You are loading an existing hero");
+    Too.slow_print("You are loading an existing hero");
     std::cout << std::endl;
 
     std::string name;
-    slow_print("Enter the name of the hero you want to play as: ");
+    Too.slow_print("Enter the name of the hero you want to play as: ");
     std::cin >> name;
     std::cout << std::endl;
 
@@ -171,14 +171,14 @@ void loadHero(const std::vector<std::shared_ptr<Spell>>& spells) {
     db.close();
     system("clear");
     std::vector<Enemy> enemies = setupEnemies();
-    start_game(god, enemies);
+    G1.start_game(god, enemies);
 
 
 
 }
 
 
-void deleteHero(){
+void Database::deleteHero(){
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("localhost");
     db.setDatabaseName("hobo_adventure");
@@ -191,7 +191,7 @@ void deleteHero(){
 
 
     std::string name;
-    slow_print("Enter the name of the hero to delete: ");
+    Too.slow_print("Enter the name of the hero to delete: ");
     std::cin >> name;
     std::cout << std::endl;
 
@@ -207,12 +207,12 @@ void deleteHero(){
     }
 
     db.close();
-    selector();
+    M1.selector();
 
 
 }
 
-void saveCharacter(Hero &god){
+void Database::saveCharacter(Hero &god){
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("localhost");
     db.setDatabaseName("hobo_adventure");
@@ -288,7 +288,7 @@ void saveCharacter(Hero &god){
 
 
 
-std::vector<std::shared_ptr<Spell>> createSpells() {
+std::vector<std::shared_ptr<Spell>> Database::createSpells() {
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("localhost");
     db.setDatabaseName("hobo_adventure");
@@ -333,3 +333,5 @@ std::vector<std::shared_ptr<Spell>> createSpells() {
     db.close(); // Close the database connection
     return spellList;
 }
+
+Database DB1;

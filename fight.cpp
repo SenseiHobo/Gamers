@@ -9,7 +9,7 @@
 #include "Cave.h"
 #include "element.h"
 
-void fight(Hero& god, Enemy& enemy) {
+void fighter::fight(Hero& god, Enemy& enemy) {
     std::cout << "Press Enter to continue..." << std::endl;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     while (god.getCurrentHP() > 0 && enemy.getHealth() > 0) {
@@ -21,7 +21,7 @@ void fight(Hero& god, Enemy& enemy) {
         // Player chooses attack type
         std::cout << "Choose your action:\n1. Regular Attack\n2. Cast Spell\nEnter choice (1-2): ";
         char cho;
-        cho = getKeypress();
+        cho = Too.getKeypress();
         int choice = cho - '0';
         std::cout << std::endl;
 
@@ -34,7 +34,7 @@ void fight(Hero& god, Enemy& enemy) {
             damage = god.getStrength();
             std::ostringstream message;
             message << god.getName() << " attacks " << enemy.getName() << " for " << damage << " damage." << std::endl;
-            slow_print(message.str());
+            Too.slow_print(message.str());
             message.str("");
             message.clear();
             enemy.takeDamage(damage);
@@ -51,7 +51,7 @@ void fight(Hero& god, Enemy& enemy) {
                               << ", Mana Cost: " << god.getSpells()[i] -> getManaCost() << ")" <<std::endl;
                 }
                 char Spelldex;
-                Spelldex = getKeypress();
+                Spelldex = Too.getKeypress();
                 int spellIndex = Spelldex - '0';
                 spellIndex--;  
                 if (spellIndex >= 0 && spellIndex < god.getSpells().size()) {
@@ -63,7 +63,7 @@ void fight(Hero& god, Enemy& enemy) {
                         std::ostringstream message;
                         message << god.getName() << " casts " << spell->getName() 
                                 << ", dealing " << damage << " damage." << std::endl;
-                        slow_print(message.str());
+                        Too.slow_print(message.str());
                         message.str("");
                         message.clear();
                         enemy.takeDamage(damage);
@@ -78,7 +78,7 @@ void fight(Hero& god, Enemy& enemy) {
             } else {
                 std::ostringstream message;
                 message << "No spells available to cast!" << std::endl << std::endl;
-                slow_print(message.str());
+                Too.slow_print(message.str());
                 message.str("");
                 message.clear();
                 continue;  // Skip enemy turn if no spells are available
@@ -92,22 +92,22 @@ void fight(Hero& god, Enemy& enemy) {
         if (enemy.getHealth() <= 0) {
             std::ostringstream message;
             message << enemy.getName() << " has been defeated!" << std::endl << std::endl;
-            slow_print(message.str());
+            Too.slow_print(message.str());
 
             message.str("");
             message.clear();
 
             message << god.getName() << " wins with " << god.getCurrentHP() << " HP remaining." << std::endl << std::endl;
-            slow_print(message.str());
+            Too.slow_print(message.str());
             message.str("");
             message.clear();
             god.XPreward(enemy.getXP());
             std::cout << "XP rewarded: " << enemy.getXP() << std::endl << std::endl;
             god.levelup();
-            delay();
+            Too.delay();
 
             if (enemy.getName() == "Jungle Dragon") {
-                victory();  
+                G1.victory();  
             }
 
             enemy.HealthReset();
@@ -118,7 +118,7 @@ void fight(Hero& god, Enemy& enemy) {
         damage = enemy.getStrength(); 
         std::ostringstream message;
         message << enemy.getName() << " attacks " << god.getName() << " for " << damage << " damage." << std::endl;
-        slow_print(message.str());
+        Too.slow_print(message.str());
         message.str("");
         message.clear();
         std::cout << std::endl;
@@ -126,16 +126,16 @@ void fight(Hero& god, Enemy& enemy) {
 
         if (god.getCurrentHP() <= 0) {
             message << god.getName() << " has been defeated!" << std::endl << std::endl;
-            slow_print(message.str());
+            Too.slow_print(message.str());
             message.str("");
             message.clear();
             message << enemy.getName() << " wins with " << enemy.getHealth() << " HP remaining." << std::endl << std::endl;
-            slow_print(message.str());
+            Too.slow_print(message.str());
             message.str("");
             message.clear();
-            delay();
+            Too.delay();
             system("clear");
-            selector(); 
+            M1.selector(); 
             break;
         }
     }
@@ -143,7 +143,7 @@ void fight(Hero& god, Enemy& enemy) {
 
 
 
-void Cavefight(Hero& god, const Cave& caveEnemies) {
+void fighter::Cavefight(Hero& god, const Cave& caveEnemies) {
     
   const std::vector<Enemy>& enemies = caveEnemies.getEnemies();
 
@@ -172,10 +172,10 @@ void Cavefight(Hero& god, const Cave& caveEnemies) {
 
 
 
-void battleEnemy(std::vector<Enemy>& enemies) {
+void fighter::battleEnemy(std::vector<Enemy>& enemies) {
     char choice;
     std::cout << "Pick an Enemy to battle by their ID or 0 to exit: ";
-    choice = getKeypress();
+    choice = Too.getKeypress();
     int cho = choice - '0';
     std::cout << std::endl;
     
@@ -183,7 +183,7 @@ void battleEnemy(std::vector<Enemy>& enemies) {
         Enemy& opp = enemies[cho -1]; 
         std::ostringstream message;
         message << "You are fighting " << opp.getName() << std::endl;
-        slow_print(message.str()); 
+        Too.slow_print(message.str()); 
         message.str("");
         message.clear();
         fight(god, opp);
@@ -193,4 +193,5 @@ void battleEnemy(std::vector<Enemy>& enemies) {
     }
 }
 
+fighter F1;
 

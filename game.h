@@ -7,13 +7,18 @@
 #include "Cave.h"
 #include "shop.h"
 
-void start_game(Hero &god, std::vector<Enemy> &enemies);
 
-void victory();
+class game{
+    public: 
+        void start_game(Hero &god, std::vector<Enemy> &enemies);
+        void victory();
 
+};
 
 
 void printCaves();
 void displayAndBuySpells(Hero& god);
+
+extern game G1;
 
 #endif //GAME_H

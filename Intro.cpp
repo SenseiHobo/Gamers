@@ -5,16 +5,16 @@
 #include "Tool.h"
 
 
-void tutorial(){
+void Tutorial::tutorial(){
 
     char cho;
     int choice; 
 
-    slow_print("do you wanna skip the tutorial?\n Press 1 for no\n Press 2 for Yes");
+    Too.slow_print("do you wanna skip the tutorial?\n Press 1 for no\n Press 2 for Yes");
     std::cout << std::endl;
     std::cout << "Enter your choice: ";
 
-    cho = getKeypress();
+    cho = Too.getKeypress();
     choice = cho - '0';
     std::cout << std::endl;
     if(choice == 1){
@@ -24,7 +24,7 @@ void tutorial(){
     << "Welcome to Hobo Adventure! Let's get started on how to play the game:\n\n"
     << "After this message, you will be brought to a screen looking like this:\n\n";
 
-    slow_print(message.str());
+    Too.slow_print(message.str());
     message.str("");
     message.clear();
 
@@ -41,7 +41,7 @@ void tutorial(){
     << "Once you load your character, you will be brought to this screen:\n\n";
    
 
-    slow_print(message.str());
+    Too.slow_print(message.str());
     message.str("");
     message.clear();
 
@@ -76,7 +76,7 @@ void tutorial(){
             << "Exit game: Quits the game.\n"
             << "\nThe game concludes once you defeat the Jungle Dragon.\n\nGood luck, adventurer!\n";
 
-    slow_print(message.str());
+    Too.slow_print(message.str());
     message.str("");
     message.clear();
 
@@ -84,10 +84,10 @@ void tutorial(){
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     system("clear");
-    selector();
+    M1.selector();
     } else if(choice == 2){
         system("clear");
-        selector();
+        M1.selector();
     } else {
         std::cout << "Invalid input try again " << std::endl;
         tutorial();
@@ -96,7 +96,7 @@ void tutorial(){
 }
 
 
-void weakness(){
+void Tutorial::weakness(){
 
     std::ostringstream message;
 
@@ -107,7 +107,7 @@ void weakness(){
     << "Water is strong against Wood & Fire\n"
     << "Wood is strong against Earth & Fire" << std::endl << std::endl;
 
-    slow_print(message.str());
+    Too.slow_print(message.str());
     message.str("");
     message.clear();
 
@@ -117,6 +117,6 @@ void weakness(){
 }
 
 
-
+Tutorial T1;
 
 

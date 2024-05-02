@@ -1,9 +1,15 @@
 #ifndef MENU_H
 #define MENU_H
 
-void start();
 
-void selector();
+class Menu{
+    public: 
 
+        void start();
+        void selector();
+
+};
+
+extern Menu M1;
 
 #endif //MENU_H

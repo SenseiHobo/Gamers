@@ -11,9 +11,8 @@ enum class Element{
 };
 
 
-
-
 float getDamageMultiplier(Element attacker, Element defender);
+
 
 Element stringToElement(const std::string& element);
 

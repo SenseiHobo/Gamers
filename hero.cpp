@@ -117,8 +117,8 @@ void Hero::showStats(){
     << god.getCurrentHP() << "/" << god.getMaxHP() << "     Mana: " << god.getCurrentMana() << "/"<<god.getMana()  << "     Damage: " 
     <<  god.getDamage() << "      Gold: "  << god.getGold() <<  std::endl << std::endl;
 
-    slow_print(message.str());
-    delay();
+    Too.slow_print(message.str());
+    Too.delay();
 }
 
 Hero god; 
